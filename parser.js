@@ -1,19 +1,19 @@
 function scheduleHtmlParser(providerRes) {
   function parseWeeks(weekString) {
     const weeks = [];
-    const isOdd = weekString.includes("(单)");
-    const isEven = weekString.includes("(双)");
-    weekString = weekString.replaceAll("周", "");
-    weekString = weekString.replace("(单)", "");
-    weekString = weekString.replace("(双)", "");
+    const isOddWeek = weekString.includes("(单)");
+    const isEvenWeek = weekString.includes("(双)");
+    weekString = weekString.replaceAll(/周/g, "");
+    weekString = weekString.replace(/\(单\)/g, "");
+    weekString = weekString.replace(/\(双\)/g, "");
     weekString.split(",").forEach((part) => {
       if (part.includes("-")) {
         const [start, end] = part.split("-").map(Number);
         for (let i = start; i <= end; i++) {
           if (
-            (!isOdd && !isEven) ||
-            (isOdd && i % 2 === 1) ||
-            (isEven && i % 2 === 0)
+            (!isOddWeek && !isEvenWeek) ||
+            (isOddWeek && i % 2 === 1) ||
+            (isEvenWeek && i % 2 === 0)
           ) {
             weeks.push(i);
           }
@@ -21,9 +21,9 @@ function scheduleHtmlParser(providerRes) {
       } else {
         const week = Number(part);
         if (
-          (!isOdd && !isEven) ||
-          (isOdd && week % 2 === 1) ||
-          (isEven && week % 2 === 0)
+          (!isOddWeek && !isEvenWeek) ||
+          (isOddWeek && week % 2 === 1) ||
+          (isEvenWeek && week % 2 === 0)
         ) {
           weeks.push(week);
         }
