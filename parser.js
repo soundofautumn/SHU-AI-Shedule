@@ -3,7 +3,7 @@ function scheduleHtmlParser(providerRes) {
     const weeks = [];
     const isOddWeek = weekString.includes("(单)");
     const isEvenWeek = weekString.includes("(双)");
-    weekString = weekString.replaceAll(/周/g, "");
+    weekString = weekString.replace(/周/g, "");
     weekString = weekString.replace(/\(单\)/g, "");
     weekString = weekString.replace(/\(双\)/g, "");
     weekString.split(",").forEach((part) => {
