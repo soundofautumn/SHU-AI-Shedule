@@ -1,21 +1,36 @@
 function scheduleHtmlParser(providerRes) {
-
   function parseWeeks(weekString) {
     const weeks = [];
-    // 去除末尾的周字
-    weekString = weekString.replace(/周$/, "");
+    const isOdd = weekString.includes("(单)");
+    const isEven = weekString.includes("(双)");
+    weekString = weekString.replaceAll("周", "");
+    weekString = weekString.replace("(单)", "");
+    weekString = weekString.replace("(双)", "");
     weekString.split(",").forEach((part) => {
       if (part.includes("-")) {
         const [start, end] = part.split("-").map(Number);
         for (let i = start; i <= end; i++) {
-          weeks.push(i);
+          if (
+            (!isOdd && !isEven) ||
+            (isOdd && i % 2 === 1) ||
+            (isEven && i % 2 === 0)
+          ) {
+            weeks.push(i);
+          }
         }
       } else {
-        weeks.push(Number(part));
+        const week = Number(part);
+        if (
+          (!isOdd && !isEven) ||
+          (isOdd && week % 2 === 1) ||
+          (isEven && week % 2 === 0)
+        ) {
+          weeks.push(week);
+        }
       }
     });
     return weeks;
-}
+  }
 
   const data = JSON.parse(providerRes);
   const result = [];
