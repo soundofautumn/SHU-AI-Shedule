@@ -1,6 +1,4 @@
-function scheduleHtmlProvider(
-  iframeContent = "",
-  frameContent = "",
-  dom = document
-) {
+function scheduleHtmlProvider() {
+    return document.querySelector('div.select-course-main').innerHTML;
+
 }
